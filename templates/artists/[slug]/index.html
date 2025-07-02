@@ -6,6 +6,7 @@
 <body>
     <h1>{{ artist.name }}</h1>
     <p>{{ artist.genre }}</p>
+    <h2>Albums:</h2>
     <ul>
         {% for album in albums %}
         <li>{{ album.title }}, Released: {{album.release_year}}</li>

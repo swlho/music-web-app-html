@@ -45,3 +45,15 @@ def test_get_artist_details_by_id_1(page, test_web_address, db_connection):
         'Surfer Rosa, Released: 1988',
         'Bossanova, Released: 1990'
         ])
+
+
+def test_get_artists(page, test_web_address, db_connection):
+    db_connection.seed('seeds/music_directory.sql')
+    page.goto(f"http://{test_web_address}/artists")
+    a_tag = page.locator("a")
+    expect(a_tag).to_have_text([
+        'Pixies, Genre: Rock',
+        'ABBA, Genre: Pop',
+        'Taylor Swift, Genre: Pop',
+        'Nina Simone, Genre: Jazz'
+    ])
