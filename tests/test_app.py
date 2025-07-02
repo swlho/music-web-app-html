@@ -30,3 +30,18 @@ def test_get_album_by_id_1(page, test_web_address, db_connection):
     p_tag = page.locator("p")
     expect(h1_tag).to_have_text(["Doolittle"])
     expect(p_tag).to_have_text(["Release year: 1989\nArtist: Pixies"])
+
+
+def test_get_artist_details_by_id_1(page, test_web_address, db_connection):
+    db_connection.seed('seeds/music_directory.sql')
+    page.goto(f"http://{test_web_address}/artists/1")
+    h1_tag = page.locator("h1")
+    p_tag = page.locator("p")
+    li_tag = page.locator("li")
+    expect(h1_tag).to_have_text(["Pixies"])
+    expect(p_tag).to_have_text(["Rock"])
+    expect(li_tag).to_have_text([
+        'Doolittle, Released: 1989',
+        'Surfer Rosa, Released: 1988',
+        'Bossanova, Released: 1990'
+        ])

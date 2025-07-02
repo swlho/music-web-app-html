@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, render_template
 from lib.database_connection import get_flask_database_connection
 from lib.album_repository import AlbumRepository
+from lib.artist_repository import ArtistRepository
 
 
 # Create a new Flask app
@@ -22,6 +23,13 @@ def get_album_by_id(album_id):
     repository = AlbumRepository(connection)
     albums = repository.get_album_with_artist(album_id)
     return render_template('albums/index.html', albums=albums)
+
+@app.route('/artists/<int:artist_id>', methods=['GET'])
+def get_artist_by_id(artist_id):
+    connection = get_flask_database_connection(app)
+    repository = ArtistRepository(connection)
+    artist, albums = repository.get_artist_with_albums(artist_id).values()
+    return render_template('artists/[slug]/index.html', artist=artist, albums=albums)
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database

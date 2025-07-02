@@ -7,7 +7,7 @@
         {% if albums | length > 1 %}
         <h1>Albums</h1>
         {% for album in albums %}
-            <div>Title: {{album.title}} Released: {{album.release_year}}</div>
+            <div><a href="/albums/{{album.id}}">Title: {{album.title}} Released: {{album.release_year}}</a></div>
         {% endfor %}
 
         {% else %}
