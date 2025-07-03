@@ -25,7 +25,8 @@ def test_all_returns_all_albums(db_connection):
 def test_add_album_adds_album_to_database(db_connection):
     db_connection.seed('seeds/music_directory.sql')
     repository = AlbumRepository(db_connection)
-    repository.add_album('Voyage', 2022, 2)
+    album = Album(None, 'Voyage', 2022, 2)
+    repository.add_album(album)
     all_albums = repository.all()
     assert Album(13, 'Voyage', 2022, 2) in all_albums
 

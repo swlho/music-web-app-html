@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Add a new album</h1>
+    <form action="/albums" method="POST">
+        {% if props["errors"] %}
+        <p class="errors">
+          There were errors with your submission: {% if props["artist_error"] %} {{props["artist_error"]}} {% endif %}{{ props["errors"] }}
+        </p>
+        {% endif %}
+        <input type="text" name="title">
+        <input type="text" name="release-year">
+        <input type="text" name="artist">
+        <input type="submit" value="Add album">
+    </form>
+{% endblock %}

@@ -19,3 +19,13 @@ class ArtistRepository:
         artist = Artist(rows[0]["artist_id"], rows[0]["name"], rows[0]["genre"])
         albums = [Album(row["album_id"], row["title"], row["release_year"], row["artist_id"]) for row in rows]
         return {"artist": artist, "albums": albums}
+
+    def artist_exists(self, artist_name):
+        artist = self._connection.execute('SELECT id FROM artists WHERE name = %s', [artist_name])
+        if artist:
+            return artist[0]["id"]
+        else:
+            return None
+
+    def generate_artist_error(self):
+        return "Artist not in database! Please add the artist first before adding albums for them."

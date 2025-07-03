@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+{% if albums | length > 1 %}
+<h1>Albums</h1>
+{% for album in albums %}
+    <div><a href="/albums/{{album.id}}">Title: {{album.title}} Released: {{album.release_year}}</a></div>
+{% endfor %}
+
+{% else %}
+    <h1>{{albums[0].album.title}}</h1>
+    <p>
+        Release year: {{albums[0].album.release_year}}
+        Artist: {{albums[0].artist}}
+    </p>
+{% endif %}
+<a href="/albums/new">Add new album</a>
+{% endblock %}

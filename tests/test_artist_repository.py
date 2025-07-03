@@ -37,3 +37,17 @@ def test_get_artist_with_albums(db_connection):
         Album(2, 'Surfer Rosa', 1988, 1),
         Album(5, 'Bossanova', 1990, 1)
     ]}
+
+
+def test_artist_exists(db_connection):
+    db_connection.seed('seeds/music_directory.sql')
+    repository = ArtistRepository(db_connection)
+    result = repository.artist_exists("Pixies")
+    assert result == 1
+
+
+def test_artist_exists_return_none_if_doesnt_exist(db_connection):
+    db_connection.seed('seeds/music_directory.sql')
+    repository = ArtistRepository(db_connection)
+    result = repository.artist_exists("Some band")
+    assert result == None

@@ -57,3 +57,17 @@ def test_get_artists(page, test_web_address, db_connection):
         'Taylor Swift, Genre: Pop',
         'Nina Simone, Genre: Jazz'
     ])
+
+
+def test_get_create_new_album_page_valid_data(page, test_web_address, db_connection):
+    db_connection.seed('seeds/music_directory.sql')
+    page.goto(f"http://{test_web_address}/albums")
+    page.click("text='Add new album'")
+    page.fill("input[name=title]", 'Test Album')
+    page.fill("input[name=release-year]", '2000')
+    page.fill("input[name=artist]", 'Pixies')
+    page.click("text='Add album'")
+    h1_tag = page.locator("h1")
+    p_tag = page.locator("p")
+    expect(h1_tag).to_have_text(["Test Album"])
+    expect(p_tag).to_have_text(["Release year: 2000\nArtist: Pixies"])
