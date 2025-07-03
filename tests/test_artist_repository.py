@@ -17,7 +17,8 @@ def test_all_return_all_artists(db_connection):
 def test_add_artist_add_artist_into_database(db_connection):
     db_connection.seed('seeds/music_directory.sql')
     repository = ArtistRepository(db_connection)
-    repository.add_artist("Wild nothing", "Indie")
+    artist = Artist(None,"Wild nothing", "Indie")
+    repository.add_artist(artist)
     result = repository.all()
     assert result == [
         Artist(1, 'Pixies', 'Rock'),

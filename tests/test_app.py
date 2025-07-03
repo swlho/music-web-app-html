@@ -82,5 +82,5 @@ def test_get_create_new_artist_page(page, test_web_address, db_connection):
     page.click("text='Add artist'")
     h1_tag = page.locator("h1")
     p_tag = page.locator("p")
-    expect(h1_tag).to_have_text(["Test artist"])
+    expect(h1_tag).to_have_text(["Test Artist"])
     expect(p_tag).to_have_text(["Blues"])
