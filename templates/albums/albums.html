@@ -5,6 +5,11 @@
 {% for album in albums %}
     <div><a href="/albums/{{album.id}}">Title: {{album.title}} Released: {{album.release_year}}</a></div>
 {% endfor %}
+<br>
+<a href="/albums/new">Add new album</a>
+<br>
+<br>
+<a href="/artists">Artists</a>
 
 {% else %}
     <h1>{{albums[0].album.title}}</h1>
@@ -12,6 +17,6 @@
         Release year: {{albums[0].album.release_year}}
         Artist: {{albums[0].artist}}
     </p>
+    <a href="/albums"><-Back to Albums</a>
 {% endif %}
-<a href="/albums/new">Add new album</a>
 {% endblock %}

@@ -2,10 +2,15 @@
 {% block content %}
     <h1>{{ artist.name }}</h1>
     <p>{{ artist.genre }}</p>
+    {% if albums %}
     <h2>Albums:</h2>
     <ul>
         {% for album in albums %}
         <li>{{ album.title }}, Released: {{album.release_year}}</li>
         {% endfor %}
     </ul>
+    {% else %}
+    <h2>No albums in the database</h2>
+    {% endif %}
+    <a href="/artists"><-Back to Artists</a>
 {% endblock %}

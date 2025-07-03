@@ -4,13 +4,16 @@ from lib.database_connection import get_flask_database_connection
 from lib.album_repository import AlbumRepository
 from lib.artist_repository import ArtistRepository
 from lib.album import Album
+from lib.artist import Artist
 
 
 # Create a new Flask app
 app = Flask(__name__)
 
 # == Your Routes Here ==
-
+@app.route('/', methods=['GET'])
+def reroute():
+    return redirect('/artists')
 
 @app.route('/albums', methods=['GET'])
 def get_albums():
@@ -64,11 +67,26 @@ def post_new_album():
         if not artist_id:
             props.update({"artist_error": artist_repository.generate_artist_error()})
         return render_template('albums/new.html', props=props)
-    # if all good, post album - return album.id
-    # redirect to /albums/{album.id}
     new_album = album_repository.add_album(album)
     return redirect(f"/albums/{new_album.id}")
 
+@app.route('/artists/new', methods=['GET'])
+def get_create_artist():
+    return render_template('artists/new.html', props=None)
+
+
+@app.route('/artists', methods=['POST'])
+def post_new_artist():
+    connection = get_flask_database_connection(app)
+    artist_repository = ArtistRepository(connection)
+    artist_name = request.form['name']
+    artist_genre = request.form['genre']
+    artist_exists = artist_repository.artist_exists(artist_name)
+    if artist_exists:
+        return render_template('artists/new.html', error=artist_repository.generate_artist_exists_error())
+    artist = Artist(None, artist_name, artist_genre)
+    new_artist = artist_repository.add_artist(artist)
+    return redirect(f"/artists/{new_artist.id}")
 
 # These lines start the server if you run this file directly
 # They also start the server configured to use the test database

@@ -50,8 +50,8 @@ def test_get_artist_details_by_id_1(page, test_web_address, db_connection):
 def test_get_artists(page, test_web_address, db_connection):
     db_connection.seed('seeds/music_directory.sql')
     page.goto(f"http://{test_web_address}/artists")
-    a_tag = page.locator("a")
-    expect(a_tag).to_have_text([
+    li_tag = page.locator("li")
+    expect(li_tag).to_have_text([
         'Pixies, Genre: Rock',
         'ABBA, Genre: Pop',
         'Taylor Swift, Genre: Pop',
@@ -71,3 +71,16 @@ def test_get_create_new_album_page_valid_data(page, test_web_address, db_connect
     p_tag = page.locator("p")
     expect(h1_tag).to_have_text(["Test Album"])
     expect(p_tag).to_have_text(["Release year: 2000\nArtist: Pixies"])
+
+
+def test_get_create_new_artist_page(page, test_web_address, db_connection):
+    db_connection.seed('seeds/music_directory.sql')
+    page.goto(f"http://{test_web_address}/artists")
+    page.click("text='Add new artist'")
+    page.fill("input[name=name]", 'Test Artist')
+    page.fill("input[name=genre]", 'Blues')
+    page.click("text='Add artist'")
+    h1_tag = page.locator("h1")
+    p_tag = page.locator("p")
+    expect(h1_tag).to_have_text(["Test artist"])
+    expect(p_tag).to_have_text(["Blues"])

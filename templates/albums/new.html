@@ -7,8 +7,11 @@
           There were errors with your submission: {% if props["artist_error"] %} {{props["artist_error"]}} {% endif %}{{ props["errors"] }}
         </p>
         {% endif %}
+        <label for="title">Title</label>
         <input type="text" name="title">
+        <label for="release-year">Release Year</label>
         <input type="text" name="release-year">
+        <label for="artist">Artist</label>
         <input type="text" name="artist">
         <input type="submit" value="Add album">
     </form>
